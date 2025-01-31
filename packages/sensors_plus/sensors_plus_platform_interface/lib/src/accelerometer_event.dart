@@ -8,7 +8,7 @@
 /// a particular direction.
 class AccelerometerEvent {
   /// Constructs an instance with the given [x], [y], and [z] values.
-  AccelerometerEvent(this.x, this.y, this.z, this.timestamp);
+  AccelerometerEvent(this.x, this.y, this.z, this.timestamp, this.accuracy);
 
   /// Acceleration force along the x axis (including gravity) measured in m/s^2.
   ///
@@ -38,7 +38,9 @@ class AccelerometerEvent {
 
   final DateTime timestamp;
 
+  /// accuracy of the event
+  final double accuracy;
+
   @override
-  String toString() =>
-      '[AccelerometerEvent (x: $x, y: $y, z: $z, timestamp: $timestamp)]';
+  String toString() => '[AccelerometerEvent (x: $x, y: $y, z: $z, timestamp: $timestamp, accuracy: $accuracy)]';
 }

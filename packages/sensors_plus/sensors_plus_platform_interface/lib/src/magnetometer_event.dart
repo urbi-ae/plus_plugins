@@ -12,7 +12,7 @@ class MagnetometerEvent {
   /// Constructs a new instance with the given [x], [y], and [z] values.
   ///
   /// See [MagnetometerEvent] for more information.
-  MagnetometerEvent(this.x, this.y, this.z, this.timestamp);
+  MagnetometerEvent(this.x, this.y, this.z, this.timestamp, this.accuracy);
 
   /// The ambient magnetic field in this axis surrounding the sensor in
   /// microteslas ***μT***.
@@ -26,7 +26,9 @@ class MagnetometerEvent {
 
   final DateTime timestamp;
 
+  /// accuracy of the event
+  final double accuracy;
+
   @override
-  String toString() =>
-      '[MagnetometerEvent (x: $x, y: $y, z: $z, timestamp: $timestamp)]';
+  String toString() => '[MagnetometerEvent (x: $x, y: $y, z: $z, timestamp: $timestamp, accuracy: $accuracy)]';
 }

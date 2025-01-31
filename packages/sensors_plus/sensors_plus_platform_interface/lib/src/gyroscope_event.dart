@@ -6,7 +6,7 @@
 /// the device in 3D space.
 class GyroscopeEvent {
   /// Constructs an instance with the given [x], [y], and [z] values.
-  GyroscopeEvent(this.x, this.y, this.z, this.timestamp);
+  GyroscopeEvent(this.x, this.y, this.z, this.timestamp, this.accuracy);
 
   /// Rate of rotation around the x axis measured in rad/s.
   ///
@@ -38,7 +38,9 @@ class GyroscopeEvent {
 
   final DateTime timestamp;
 
+  /// accuracy of the event
+  final double accuracy;
+
   @override
-  String toString() =>
-      '[GyroscopeEvent (x: $x, y: $y, z: $z, timestamp: $timestamp)]';
+  String toString() => '[GyroscopeEvent (x: $x, y: $y, z: $z, timestamp: $timestamp, accuracy: $accuracy)]';
 }

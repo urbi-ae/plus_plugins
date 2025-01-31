@@ -10,8 +10,7 @@ import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.
 
 /// A method channel -based implementation of the SensorsPlatform interface.
 class MethodChannelSensors extends SensorsPlatform {
-  static const MethodChannel _methodChannel =
-      MethodChannel('dev.fluttercommunity.plus/sensors/method');
+  static const MethodChannel _methodChannel = MethodChannel('dev.fluttercommunity.plus/sensors/method');
 
   static const EventChannel _accelerometerEventChannel =
       EventChannel('dev.fluttercommunity.plus/sensors/accelerometer');
@@ -19,14 +18,11 @@ class MethodChannelSensors extends SensorsPlatform {
   static const EventChannel _userAccelerometerEventChannel =
       EventChannel('dev.fluttercommunity.plus/sensors/user_accel');
 
-  static const EventChannel _gyroscopeEventChannel =
-      EventChannel('dev.fluttercommunity.plus/sensors/gyroscope');
+  static const EventChannel _gyroscopeEventChannel = EventChannel('dev.fluttercommunity.plus/sensors/gyroscope');
 
-  static const EventChannel _magnetometerEventChannel =
-      EventChannel('dev.fluttercommunity.plus/sensors/magnetometer');
+  static const EventChannel _magnetometerEventChannel = EventChannel('dev.fluttercommunity.plus/sensors/magnetometer');
 
-  static const EventChannel _barometerEventChannel =
-      EventChannel('dev.fluttercommunity.plus/sensors/barometer');
+  static const EventChannel _barometerEventChannel = EventChannel('dev.fluttercommunity.plus/sensors/barometer');
 
   final logger = Logger('MethodChannelSensors');
   Stream<AccelerometerEvent>? _accelerometerEvents;
@@ -52,15 +48,14 @@ class MethodChannelSensors extends SensorsPlatform {
       microseconds = 0;
     }
     _methodChannel.invokeMethod('setAccelerationSamplingPeriod', microseconds);
-    _accelerometerEvents ??= _accelerometerEventChannel
-        .receiveBroadcastStream()
-        .map((dynamic event) {
+    _accelerometerEvents ??= _accelerometerEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
       return AccelerometerEvent(
         list[0]!,
         list[1]!,
         list[2]!,
         DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+        list[4]!,
       );
     });
     return _accelerometerEvents!;
@@ -83,14 +78,14 @@ class MethodChannelSensors extends SensorsPlatform {
       microseconds = 0;
     }
     _methodChannel.invokeMethod('setGyroscopeSamplingPeriod', microseconds);
-    _gyroscopeEvents ??=
-        _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
+    _gyroscopeEvents ??= _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
       return GyroscopeEvent(
         list[0]!,
         list[1]!,
         list[2]!,
         DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+        list[4]!,
       );
     });
     return _gyroscopeEvents!;
@@ -112,17 +107,15 @@ class MethodChannelSensors extends SensorsPlatform {
           'information');
       microseconds = 0;
     }
-    _methodChannel.invokeMethod(
-        'setUserAccelerometerSamplingPeriod', microseconds);
-    _userAccelerometerEvents ??= _userAccelerometerEventChannel
-        .receiveBroadcastStream()
-        .map((dynamic event) {
+    _methodChannel.invokeMethod('setUserAccelerometerSamplingPeriod', microseconds);
+    _userAccelerometerEvents ??= _userAccelerometerEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
       return UserAccelerometerEvent(
         list[0]!,
         list[1]!,
         list[2]!,
         DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+        list[4]!,
       );
     });
     return _userAccelerometerEvents!;
@@ -145,14 +138,14 @@ class MethodChannelSensors extends SensorsPlatform {
       microseconds = 0;
     }
     _methodChannel.invokeMethod('setMagnetometerSamplingPeriod', microseconds);
-    _magnetometerEvents ??=
-        _magnetometerEventChannel.receiveBroadcastStream().map((dynamic event) {
+    _magnetometerEvents ??= _magnetometerEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
       return MagnetometerEvent(
         list[0]!,
         list[1]!,
         list[2]!,
         DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+        list[4]!,
       );
     });
     return _magnetometerEvents!;
@@ -175,8 +168,7 @@ class MethodChannelSensors extends SensorsPlatform {
       microseconds = 0;
     }
     _methodChannel.invokeMethod('setBarometerSamplingPeriod', microseconds);
-    _barometerEvents ??=
-        _barometerEventChannel.receiveBroadcastStream().map((dynamic event) {
+    _barometerEvents ??= _barometerEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
       return BarometerEvent(
         list[0]!,

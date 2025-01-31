@@ -65,16 +65,21 @@ internal class StreamHandlerImpl(
 
     private fun createSensorEventListener(events: EventSink): SensorEventListener {
         return object : SensorEventListener {
-            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+            var accuracy = 0
+            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
+                this.accuracy = accuracy
+            }
 
             override fun onSensorChanged(event: SensorEvent) {
-                val sensorValues = DoubleArray(event.values.size + 1)
+                val sensorValues = DoubleArray(event.values.size + 2)
                 event.values.forEachIndexed { index, value ->
                     sensorValues[index] = value.toDouble()
                 }
 
                 val timestampMicro = timestampMicroAtBoot + (event.timestamp / 1000)
                 sensorValues[event.values.size] = timestampMicro.toDouble()
+
+                sensorValues[event.values.size + 1] = accuracy.toDouble()
 
                 events.success(sensorValues)
             }
