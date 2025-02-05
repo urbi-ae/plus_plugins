@@ -65,9 +65,10 @@ internal class StreamHandlerImpl(
 
     private fun createSensorEventListener(events: EventSink): SensorEventListener {
         return object : SensorEventListener {
-            var accuracy = 0
+         private val sensorAccuracies = mutableMapOf<Int, Int>()
+
             override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
-                this.accuracy = accuracy
+                sensorAccuracies[sensor.type] = accuracy
             }
 
             override fun onSensorChanged(event: SensorEvent) {
@@ -79,10 +80,13 @@ internal class StreamHandlerImpl(
                 val timestampMicro = timestampMicroAtBoot + (event.timestamp / 1000)
                 sensorValues[event.values.size] = timestampMicro.toDouble()
 
-                sensorValues[event.values.size + 1] = accuracy.toDouble()
+                // Получаем точность для текущего сенсора, если её нет — считаем 0
+                val sensorAccuracy = sensorAccuracies[event.sensor.type] ?: 0
+                sensorValues[event.values.size + 1] = sensorAccuracy.toDouble()
 
                 events.success(sensorValues)
             }
+
         }
     }
 }
