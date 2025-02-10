@@ -101,7 +101,7 @@ class FPPAccelerometerStreamHandlerPlus: NSObject, MotionStreamHandler {
         z: zVal,
         timestamp: data!.timestamp,
         accuracy: accuracy,
-        sink: eventSink
+        sink: sink
       )
 
     }
