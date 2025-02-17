@@ -5,6 +5,7 @@ version: 6.1.1
 homepage: https://github.com/fluttercommunity/plus_plugins
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus/sensors_plus
 issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/sensors_plus
+publish_to: none
 topics:
   - sensor
   - sensors
@@ -27,7 +28,11 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  sensors_plus_platform_interface: ^2.0.1
+  sensors_plus_platform_interface:
+    git:
+      url: git@github.com:urbi-ae/plus_plugins.git
+      path: packages/sensors_plus/sensors_plus_platform_interface
+      ref: feature/sensor_accuracy_android_ios
 
 dev_dependencies:
   test: ^1.22.0
